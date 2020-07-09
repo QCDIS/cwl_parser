@@ -4,6 +4,7 @@ import os
 import werkzeug.utils
 from swagger_server import util
 from swagger_server.cwlparser import CwlParser
+import json
 
 
 def parse_file(file=None):  # noqa: E501
@@ -16,12 +17,16 @@ def parse_file(file=None):  # noqa: E501
 
     :rtype: Dict
     """
+
     # save the cwl file
     currentdir = os.getcwd()
     file_loc = os.path.join(currentdir, "input", file.filename)
     file.save(file_loc)
 
     #parse the file
-    parser = CwlParser(file)
+    parser = CwlParser(file_loc)
 
-    return 'do some magic!'
+    #set output
+    metadata = {'tasks': parser.tasks, 'dependencies': parser.dependencies}
+
+    return json.dumps(metadata)
