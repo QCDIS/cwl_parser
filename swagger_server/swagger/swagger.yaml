@@ -1,0 +1,46 @@
+openapi: 3.0.0
+info:
+  title: Simple Inventory API
+  description: This is a simple API
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/MasterMinded/Parsersv2/1.0.0
+  description: SwaggerHub API Auto Mocking
+paths:
+  /send_file:
+    post:
+      summary: send a file to parse
+      description: Parse a file in order to extract metadata, that can be used by
+        a planning algorithm.
+      operationId: parse_file
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/body'
+      responses:
+        "200":
+          description: MetaData sucessfully generated
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                x-content-type: application/json
+        "400":
+          description: invalid input, object invalid
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+components:
+  schemas:
+    body:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+
