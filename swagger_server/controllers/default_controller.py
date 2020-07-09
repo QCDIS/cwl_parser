@@ -29,4 +29,7 @@ def parse_file(file=None):  # noqa: E501
     #set output
     metadata = {'tasks': parser.tasks, 'dependencies': parser.dependencies}
 
+    #clear input
+    os.remove(file_loc)
+
     return json.dumps(metadata)
