@@ -32,4 +32,6 @@ def parse_file(file=None):  # noqa: E501
     #clear input
     os.remove(file_loc)
 
+
+    #TODO: handle error codes
     return json.dumps(metadata)
