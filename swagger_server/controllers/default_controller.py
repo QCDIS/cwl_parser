@@ -20,7 +20,11 @@ def parse_file(file=None):  # noqa: E501
 
     # save the cwl file
     currentdir = os.getcwd()
-    file_loc = os.path.join(currentdir, "input", file.filename)
+    input_dir = os.path.join(currentdir, "input")
+    if not os.path.exists(input_dir):
+        os.makedirs(input_dir)
+
+    file_loc = os.path.join(input_dir, file.filename)
     file.save(file_loc)
 
     #parse the file
